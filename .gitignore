@@ -1,0 +1,14 @@
+*.pem
+*.key
+*.p12
+*.mobileprovision
+*.crx
+*.xpi
+.env*
+node_modules/
+dist/
+coverage/
+.DS_Store
+.claude/
+CLAUDE.md
+.claudeignore
