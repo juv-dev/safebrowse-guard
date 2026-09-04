@@ -1,16 +1,12 @@
-# Anime Guard Strict
+# SafeBrowse Guard
 
-Extensión Chrome/Chromium (Manifest V3) para bloquear páginas de anime/manga con señales sexuales/adultas.
+Extensión Chrome/Chromium (Manifest V3) que bloquea páginas de anime/manga con contenido para adultos.
 
 ## Qué hace
 
 - Oculta inmediatamente una página candidata mientras la verifica.
-- Bloquea por señales presentes en la propia ficha: Ecchi, Hentai, Sin Censura, NSFW, 18+, desnudez, etc.
-- Consulta la API pública de AniList para revisar:
-  - `isAdult`
-  - género `Ecchi`
-  - tags adultos
-  - tags relevantes como `Nudity`, `Sexual...`, `Hypersexuality`, etc.
+- Bloquea páginas que presentan señales de contenido para adultos en su propia ficha.
+- Consulta la API pública de AniList para revisar la clasificación de contenido adulto y señales relacionadas.
 - Modo estricto por defecto: si una web claramente de anime no puede identificarse con confianza, se bloquea por precaución.
 - Excepciones explícitas:
   - manga-oni.com/.../blue-lock
@@ -23,7 +19,7 @@ Extensión Chrome/Chromium (Manifest V3) para bloquear páginas de anime/manga c
 2. Abre `chrome://extensions/`.
 3. Activa `Modo de desarrollador`.
 4. Pulsa `Cargar descomprimida`.
-5. Selecciona la carpeta `anime_guard_strict`.
+5. Selecciona la carpeta `safebrowse-guard`.
 6. En Detalles de la extensión, activa `Permitir en incógnito` si también quieres que funcione allí.
 
 ## Nota

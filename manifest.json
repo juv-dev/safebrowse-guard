@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Anime Guard Strict",
+  "name": "SafeBrowse Guard",
   "version": "1.0.0",
-  "description": "Bloquea anime/manga con se\u00f1ales de contenido sexual o adulto usando la p\u00e1gina + AniList.",
+  "description": "Bloquea p\u00e1ginas de anime/manga con contenido para adultos usando la p\u00e1gina + AniList.",
   "permissions": [
     "storage",
     "tabs"
@@ -26,7 +26,7 @@
     }
   ],
   "action": {
-    "default_title": "Anime Guard Strict"
+    "default_title": "SafeBrowse Guard"
   },
   "options_page": "options.html"
 }
