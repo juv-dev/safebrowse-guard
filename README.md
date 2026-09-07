@@ -1,33 +1,117 @@
-# Anime Guard Strict
+# SafeBrowse Guard
 
-Extensión Chrome/Chromium (Manifest V3) para bloquear páginas de anime/manga con señales sexuales/adultas.
+Extensión multiplataforma que detecta, restringe y bloquea contenido pornográfico, sexual explícito y sexualizado durante la navegación.
 
-## Qué hace
+## Estado
 
-- Oculta inmediatamente una página candidata mientras la verifica.
-- Bloquea por señales presentes en la propia ficha: Ecchi, Hentai, Sin Censura, NSFW, 18+, desnudez, etc.
-- Consulta la API pública de AniList para revisar:
-  - `isAdult`
-  - género `Ecchi`
-  - tags adultos
-  - tags relevantes como `Nudity`, `Sexual...`, `Hypersexuality`, etc.
-- Modo estricto por defecto: si una web claramente de anime no puede identificarse con confianza, se bloquea por precaución.
-- Excepciones explícitas:
-  - manga-oni.com/.../blue-lock
-  - manga-oni.com/.../wind-breaker
-  - manga-oni.com/.../one-piece
+Repositorio reiniciado. La implementación comienza desde cero siguiendo la especificación del producto (arquitectura local-first, privada por diseño, con Risk Engine multiplataforma).
+
+## Requisitos
+
+- Node.js `>=20.11`
+- pnpm `10.15.0` (fijado en `package.json` mediante `packageManager`)
+
+Se recomienda habilitar Corepack para respetar la versión fijada:
+
+```bash
+corepack enable
+```
+
+## Gestor de paquetes
+
+Este proyecto usa exclusivamente `pnpm`. No usar `npm`, `yarn` ni `bun`.
 
 ## Instalación
 
-1. Descomprime la carpeta.
-2. Abre `chrome://extensions/`.
-3. Activa `Modo de desarrollador`.
-4. Pulsa `Cargar descomprimida`.
-5. Selecciona la carpeta `anime_guard_strict`.
-6. En Detalles de la extensión, activa `Permitir en incógnito` si también quieres que funcione allí.
+```bash
+pnpm install --frozen-lockfile
+```
 
-## Nota
+## Scripts
 
-No necesitas iniciar sesión en AniList ni proporcionar contraseña/token: la extensión usa consultas públicas a `https://graphql.anilist.co`.
+| Script | Descripción |
+| --- | --- |
+| `pnpm lint` | ESLint sobre todo el repositorio (flat config, reglas type-checked para `.ts`). |
+| `pnpm lint:fix` | ESLint con autofix. |
+| `pnpm typecheck` | `tsc --noEmit` con la configuración strict. |
+| `pnpm test` | Ejecuta la suite de Vitest una vez. |
+| `pnpm test:watch` | Vitest en modo watch. |
+| `pnpm test:coverage` | Vitest con reporte de cobertura (umbral 80%). |
+| `pnpm build` | Genera los artefactos de Chrome y Firefox en `dist/`. |
+| `pnpm build:chrome` | Genera solo `dist/chrome/` (manifest MV3 + `background.js`). |
+| `pnpm build:firefox` | Genera solo `dist/firefox/` (manifest MV3 + `background.js`). |
 
-No existe una base de datos perfecta. El modo estricto está diseñado para favorecer el bloqueo ante dudas.
+## Build
+
+`pnpm build` empaqueta la extensión con `esbuild-wasm` (sin binario nativo) y
+escribe un directorio por navegador en `dist/`:
+
+- `dist/chrome/` — `manifest.json` con `background.service_worker`.
+- `dist/firefox/` — `manifest.json` con `background.scripts` y
+  `browser_specific_settings.gecko`.
+
+El build no publica nada; solo produce los artefactos que se instalan sin
+empaquetar en cada navegador para pruebas locales.
+
+## Integración continua
+
+`.github/workflows/ci.yml` corre en cada push y en cada pull request. Cada paso
+es un job independiente y reporta su estado por separado:
+
+| Job | Comando |
+| --- | --- |
+| `lint` | `pnpm install --frozen-lockfile` + `pnpm lint` |
+| `typecheck` | `pnpm install --frozen-lockfile` + `pnpm typecheck` |
+| `test` | `pnpm install --frozen-lockfile` + `pnpm test` |
+| `build` (matriz `chrome`, `firefox`) | `pnpm build:<target>` y subida del artefacto |
+
+Un PR con un error de lint, de tipos o un test roto falla el job
+correspondiente y bloquea el merge.
+
+## Estructura de carpetas
+
+```
+src/
+  core/            Lógica de dominio, sin dependencias de navegador
+    classifier/    Clasificación de contenido
+    rules/         Motor de reglas
+    keywords/      Diccionarios y matching de términos
+    domain-intelligence/  Reputación e inteligencia de dominios
+    providers/     Integraciones con proveedores externos de señales
+    visual/        Análisis visual de página
+    risk/          Risk Engine y scoring
+    normalization/ Normalización de texto y URLs
+    whitelist/     Listas de permitidos
+    local-blocklist/  Listas de bloqueo locales
+    cache/         Cacheo de resultados
+    privacy/       Garantías de privacidad
+    security/      Controles de seguridad
+    integrity/     Verificación de integridad
+    entitlements/  Licencias y features habilitadas
+    i18n/          Internacionalización
+    types/         Tipos compartidos del core
+  browser/         Capa de adaptación por navegador
+    adapters/      Contratos y adaptadores comunes
+    chromium/      Implementación Chromium
+    firefox/       Implementación Firefox
+    safari/        Implementación Safari
+  background/      Service worker / script de fondo
+  content/         Content scripts
+  popup/           UI del popup
+  options/         UI de opciones
+  shared/          Utilidades compartidas entre capas
+rulesets/          Conjuntos de reglas versionados
+  global/          Reglas independientes de idioma
+  en/ es/ fr/ pt/ de/ it/ ja/   Reglas por idioma
+tests/
+  unit/            Tests unitarios
+  integration/     Tests de integración
+  privacy/         Tests de garantías de privacidad
+  security/        Tests de seguridad
+  performance/     Tests de rendimiento
+  fixtures/        Datos de prueba compartidos
+docs/
+  legal/           Documentación legal (privacidad, términos)
+```
+
+Cada historia siguiente coloca su código y sus tests dentro de la carpeta correspondiente de este árbol.

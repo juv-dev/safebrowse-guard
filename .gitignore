@@ -8,6 +8,8 @@
 node_modules/
 dist/
 coverage/
+*.tsbuildinfo
+.eslintcache
 .DS_Store
 .claude/
 CLAUDE.md
