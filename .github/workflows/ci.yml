@@ -78,3 +78,26 @@ jobs:
           name: extension-${{ matrix.target }}
           path: dist/${{ matrix.target }}
           if-no-files-found: error
+
+  release-version-guard:
+    if: >-
+      github.event_name == 'pull_request' &&
+      (github.base_ref == 'main' || github.base_ref == 'master')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Reject promoting an already-released version
+        run: |
+          incoming="$(node -p "require('./package.json').version")"
+          git fetch --no-tags --depth=1 origin "$GITHUB_BASE_REF"
+          git show FETCH_HEAD:package.json > base-package.json
+          released="$(node -p "require('./base-package.json').version")"
+          rm -f base-package.json
+          if [ "$incoming" = "$released" ] && git ls-remote --exit-code --tags origin "refs/tags/v${incoming}" >/dev/null 2>&1; then
+            echo "::error::${{ github.base_ref }} is already at v${incoming} and tag v${incoming} exists. Bump \"version\" in package.json before promoting to ${{ github.base_ref }}."
+            exit 1
+          fi
+          echo "OK: promoting version ${incoming} to ${{ github.base_ref }} (currently ${released})."
