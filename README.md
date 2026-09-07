@@ -37,6 +37,36 @@ pnpm install --frozen-lockfile
 | `pnpm test` | Ejecuta la suite de Vitest una vez. |
 | `pnpm test:watch` | Vitest en modo watch. |
 | `pnpm test:coverage` | Vitest con reporte de cobertura (umbral 80%). |
+| `pnpm build` | Genera los artefactos de Chrome y Firefox en `dist/`. |
+| `pnpm build:chrome` | Genera solo `dist/chrome/` (manifest MV3 + `background.js`). |
+| `pnpm build:firefox` | Genera solo `dist/firefox/` (manifest MV3 + `background.js`). |
+
+## Build
+
+`pnpm build` empaqueta la extensión con `esbuild-wasm` (sin binario nativo) y
+escribe un directorio por navegador en `dist/`:
+
+- `dist/chrome/` — `manifest.json` con `background.service_worker`.
+- `dist/firefox/` — `manifest.json` con `background.scripts` y
+  `browser_specific_settings.gecko`.
+
+El build no publica nada; solo produce los artefactos que se instalan sin
+empaquetar en cada navegador para pruebas locales.
+
+## Integración continua
+
+`.github/workflows/ci.yml` corre en cada push y en cada pull request. Cada paso
+es un job independiente y reporta su estado por separado:
+
+| Job | Comando |
+| --- | --- |
+| `lint` | `pnpm install --frozen-lockfile` + `pnpm lint` |
+| `typecheck` | `pnpm install --frozen-lockfile` + `pnpm typecheck` |
+| `test` | `pnpm install --frozen-lockfile` + `pnpm test` |
+| `build` (matriz `chrome`, `firefox`) | `pnpm build:<target>` y subida del artefacto |
+
+Un PR con un error de lint, de tipos o un test roto falla el job
+correspondiente y bloquea el merge.
 
 ## Estructura de carpetas
 
