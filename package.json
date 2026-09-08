@@ -1,6 +1,6 @@
 {
   "name": "safebrowse-guard",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.15.0",
@@ -24,6 +24,7 @@
     "@vitest/coverage-v8": "5.0.0",
     "esbuild-wasm": "0.28.2",
     "eslint": "10.10.0",
+    "happy-dom": "20.14.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.69.0",
     "vitest": "5.0.0"
