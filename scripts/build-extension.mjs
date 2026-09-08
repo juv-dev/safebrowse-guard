@@ -41,6 +41,9 @@ function createManifest(target, version) {
     description:
       'Detects, restricts and blocks pornographic, sexually explicit and sexualized content while browsing.',
     permissions: ['storage', 'tabs'],
+    content_security_policy: {
+      extension_pages: "script-src 'self'; object-src 'none'",
+    },
   };
 
   if (target === 'firefox') {
