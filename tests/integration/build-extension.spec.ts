@@ -41,4 +41,12 @@ describe('build-extension script', () => {
       gecko: { id: 'safebrowse-guard@juv.dev' },
     });
   });
+
+  it.each(['chrome', 'firefox'])('should ship a strict CSP in the %s manifest', (target) => {
+    const manifest = readManifest(target);
+
+    expect(manifest['content_security_policy']).toEqual({
+      extension_pages: "script-src 'self'; object-src 'none'",
+    });
+  });
 });
