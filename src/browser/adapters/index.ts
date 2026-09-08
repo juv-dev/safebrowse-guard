@@ -5,6 +5,7 @@ export type {
   BrowserTab,
   BrowserTabs,
   MessageHandler,
+  MessageSender,
 } from './browser-adapter';
 export { createWebExtensionAdapter, isWebExtensionApi } from './webextension-adapter';
 export type { WebExtensionApi } from './webextension-adapter';
