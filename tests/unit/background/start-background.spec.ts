@@ -4,32 +4,39 @@ import { startBackground } from '../../../src/background/index';
 import { createWebExtensionAdapter } from '../../../src/browser/adapters/webextension-adapter';
 import { createFakeWebExtension } from '../../fixtures/fake-webextension';
 
+const CONTENT_SENDER = { id: 'self', tab: { id: 4 } };
+const PAGE_SENDER = { id: 'self', url: 'chrome-extension://self/popup.html' };
+
 describe('startBackground', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.resetModules();
   });
 
-  it('should record string message types received through the adapter', () => {
+  it('should record only messages that pass validateMessage', () => {
     const fake = createFakeWebExtension();
     const handle = startBackground(createWebExtensionAdapter(fake.api));
 
-    fake.emitMessage({ type: 'classify-request' });
-    fake.emitMessage({ type: 'classify-request' });
-    fake.emitMessage({ type: 'settings-updated' });
+    fake.emitMessage({ type: 'scan:request', payload: { hostname: 'example.com' } }, CONTENT_SENDER);
+    fake.emitMessage({ type: 'popup:status-request' }, PAGE_SENDER);
 
-    expect([...handle.seenMessageTypes]).toEqual(['classify-request', 'settings-updated']);
+    expect(handle.acceptedMessages).toEqual([
+      { type: 'scan:request', payload: { hostname: 'example.com' } },
+      { type: 'popup:status-request' },
+    ]);
   });
 
-  it('should ignore messages without a string type', () => {
+  it('should drop malformed, mistyped or wrongly-sent messages', () => {
     const fake = createFakeWebExtension();
     const handle = startBackground(createWebExtensionAdapter(fake.api));
 
-    fake.emitMessage({ type: 42 });
-    fake.emitMessage('plain');
-    fake.emitMessage(null);
+    fake.emitMessage({ type: 'does:not:exist' }, PAGE_SENDER);
+    fake.emitMessage({ type: 'scan:request', payload: { hostname: 'example.com' } }, PAGE_SENDER);
+    fake.emitMessage({ type: 'scan:request', payload: { hostname: 'x' }, extra: 1 }, CONTENT_SENDER);
+    fake.emitMessage('plain-string', CONTENT_SENDER);
+    fake.emitMessage({ type: 'popup:status-request' }, { url: 'https://evil.example/' });
 
-    expect(handle.seenMessageTypes.size).toBe(0);
+    expect(handle.acceptedMessages).toEqual([]);
   });
 
   it('should auto-start when a WebExtension engine is detected at load time', async () => {

@@ -7,18 +7,24 @@ interface RawTab {
   url?: string;
 }
 
+interface RawMessageSender {
+  id?: string;
+  url?: string;
+  tab?: { id?: number };
+}
+
 export interface FakeWebExtension {
   api: WebExtensionApi;
   store: Map<string, unknown>;
   sentMessages: unknown[];
-  emitMessage(message: unknown): void;
+  emitMessage(message: unknown, sender?: RawMessageSender): void;
   setTabs(tabs: RawTab[]): void;
 }
 
 export function createFakeWebExtension(options: { sendMessageResponse?: unknown } = {}): FakeWebExtension {
   const store = new Map<string, unknown>();
   const sentMessages: unknown[] = [];
-  const listeners: Array<(message: unknown) => void> = [];
+  const listeners: Array<(message: unknown, sender: RawMessageSender) => void> = [];
   let tabs: RawTab[] = [];
 
   const api: WebExtensionApi = {
@@ -61,9 +67,9 @@ export function createFakeWebExtension(options: { sendMessageResponse?: unknown 
     api,
     store,
     sentMessages,
-    emitMessage: (message) => {
+    emitMessage: (message, sender = {}) => {
       for (const listener of listeners) {
-        listener(message);
+        listener(message, sender);
       }
     },
     setTabs: (next) => {
