@@ -28,15 +28,31 @@ describe('createWebExtensionAdapter', () => {
     expect(fake.sentMessages).toEqual([{ type: 'ping' }]);
   });
 
-  it('should deliver incoming runtime messages to the registered handler', () => {
+  it('should deliver incoming runtime messages with a normalized sender', () => {
     const fake = createFakeWebExtension();
     const adapter = createWebExtensionAdapter(fake.api);
-    const handler = vi.fn<(message: unknown) => void>();
+    const handler = vi.fn<(message: unknown, sender: unknown) => void>();
 
     adapter.runtime.onMessage(handler);
-    fake.emitMessage({ type: 'classified' });
+    fake.emitMessage({ type: 'classified' }, { id: 'abc', url: 'chrome-extension://abc/popup.html' });
 
-    expect(handler).toHaveBeenCalledWith({ type: 'classified' });
+    expect(handler).toHaveBeenCalledWith(
+      { type: 'classified' },
+      { id: 'abc', url: 'chrome-extension://abc/popup.html' },
+    );
+  });
+
+  it('should keep only a numeric tab id on the normalized sender', () => {
+    const fake = createFakeWebExtension();
+    const adapter = createWebExtensionAdapter(fake.api);
+    const handler = vi.fn<(message: unknown, sender: unknown) => void>();
+
+    adapter.runtime.onMessage(handler);
+    fake.emitMessage({ type: 'classified' }, { tab: { id: 12 } });
+    fake.emitMessage({ type: 'classified' }, { tab: {} });
+
+    expect(handler).toHaveBeenNthCalledWith(1, { type: 'classified' }, { tab: { id: 12 } });
+    expect(handler).toHaveBeenNthCalledWith(2, { type: 'classified' }, {});
   });
 
   it('should normalize tabs, dropping entries without a numeric id', async () => {

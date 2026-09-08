@@ -1,8 +1,15 @@
+import type { MessageSender } from '../../shared/messaging';
 import type { BrowserAdapter, BrowserTab, MessageHandler } from './browser-adapter';
 
 interface RawTab {
   id?: number;
   url?: string;
+}
+
+interface RawMessageSender {
+  id?: string;
+  url?: string;
+  tab?: { id?: number };
 }
 
 export interface WebExtensionApi {
@@ -15,7 +22,7 @@ export interface WebExtensionApi {
   runtime: {
     sendMessage(message: unknown): Promise<unknown>;
     onMessage: {
-      addListener(listener: (message: unknown) => void): void;
+      addListener(listener: (message: unknown, sender: RawMessageSender) => void): void;
     };
   };
   tabs: {
@@ -58,6 +65,20 @@ function toBrowserTab(rawTab: RawTab): BrowserTab | undefined {
   return rawTab.url === undefined ? { id: rawTab.id } : { id: rawTab.id, url: rawTab.url };
 }
 
+function toMessageSender(raw: RawMessageSender): MessageSender {
+  const sender: MessageSender = {};
+  if (typeof raw.id === 'string') {
+    sender.id = raw.id;
+  }
+  if (typeof raw.url === 'string') {
+    sender.url = raw.url;
+  }
+  if (raw.tab !== undefined && typeof raw.tab.id === 'number') {
+    sender.tab = { id: raw.tab.id };
+  }
+  return sender;
+}
+
 export function createWebExtensionAdapter(api: WebExtensionApi): BrowserAdapter {
   return {
     storage: {
@@ -67,8 +88,8 @@ export function createWebExtensionAdapter(api: WebExtensionApi): BrowserAdapter 
     runtime: {
       sendMessage: (message) => api.runtime.sendMessage(message),
       onMessage: (handler: MessageHandler) => {
-        api.runtime.onMessage.addListener((message) => {
-          handler(message);
+        api.runtime.onMessage.addListener((message, sender) => {
+          handler(message, toMessageSender(sender));
         });
       },
     },
