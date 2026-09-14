@@ -50,8 +50,21 @@ escribe un directorio por navegador en `dist/`:
 - `dist/firefox/` — `manifest.json` con `background.scripts` y
   `browser_specific_settings.gecko`.
 
-El build no publica nada; solo produce los artefactos que se instalan sin
-empaquetar en cada navegador para pruebas locales.
+El build no publica nada. Los artefactos de `dist/` cumplen dos funciones:
+instalarse sin empaquetar en cada navegador para pruebas locales, y ser la
+entrada que embebe el instalador de la aplicación SafeBrowse Guard.
+
+## Distribución
+
+SafeBrowse Guard se distribuye como **un solo producto**: la extensión de
+navegador viaja **dentro** del instalador de la aplicación de escritorio/móvil.
+No se descarga ni se instala por separado, y **no existe** un listado
+independiente de la extensión en las stores de navegador (Chrome Web Store,
+Edge Add-ons, addons.mozilla.org).
+
+El modelo de paquete único, la detección de navegadores y el registro de la
+extensión por navegador y por sistema operativo están descritos en
+[`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md).
 
 ## Integración continua
 
