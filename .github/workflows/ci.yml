@@ -13,7 +13,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  vulnerability-scan:
+    name: vulnerability-scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    steps:
+      - uses: juv-dev/workflows-frontend/.github/actions/vulnerability-scan@main
+
+  supply-chain:
+    name: supply-chain
+    needs: vulnerability-scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: juv-dev/workflows-frontend/.github/actions/supply-chain@main
+
   lint:
+    needs: supply-chain
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
