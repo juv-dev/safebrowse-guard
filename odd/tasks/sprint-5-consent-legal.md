@@ -21,15 +21,15 @@ Complete SG Sprint 5 on top of v0.4.1 and prepare the next prerelease candidate 
 - [x] T1: Add consent and age-role domain gates with tests.
   - Acceptance: protection is inactive until explicit terms/privacy consent; minor profiles require an explicit parent/guardian role; default state is not activated.
   - Checks: focused unit tests and pipeline integration test passed.
-  - Commit: 8c0b826d71998b5123f94a9a507581f9b0091ba9.
+  - Commit: 1d8888c.
 - [x] T2: Add legal and research documentation for Sprint 5.
   - Acceptance: Privacy Policy no sale/share advertising clause; Utah/Louisiana/Texas accountability acts research; Bitdefender coexistence test plan and current evidence limits.
   - Checks: document assertions and lint passed.
-  - Commit: 8c0b826d71998b5123f94a9a507581f9b0091ba9.
+  - Commit: 1d8888c.
 - [x] T3: Bump package version to 0.4.2 and document release notes.
   - Acceptance: package version is 0.4.2; release notes mention Sprint 5 scope and evidence boundaries.
   - Checks: typecheck, test, build and manifest readback passed after correcting one shell quoting mistake in the manifest readback command.
-  - Commit: 8c0b826d71998b5123f94a9a507581f9b0091ba9.
+  - Commit: 1d8888c.
 
 ## Evidence
 - Branch: feature/sprint-5-consent-legal.
