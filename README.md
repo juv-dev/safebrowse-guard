@@ -66,6 +66,12 @@ El modelo de paquete único, la detección de navegadores y el registro de la
 extensión por navegador y por sistema operativo están descritos en
 [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md).
 
+## Releases
+
+El flujo propuesto de ramas, checks técnicos, aceptación manual y evidencia de
+releases está en [docs/RELEASES.md](docs/RELEASES.md). Es una guía de proceso,
+no una configuración de CI o publicación automática.
+
 ## Integración continua
 
 `.github/workflows/ci.yml` corre en cada push y en cada pull request. Cada paso
