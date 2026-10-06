@@ -72,6 +72,14 @@ El flujo propuesto de ramas, checks técnicos, aceptación manual y evidencia de
 releases está en [docs/RELEASES.md](docs/RELEASES.md). Es una guía de proceso,
 no una configuración de CI o publicación automática.
 
+## Consentimiento y límites legales
+
+La activación inicial requiere aceptación explícita de términos, Privacy Policy
+y rol de edad antes de cualquier protección. Los documentos de referencia están
+en [`docs/legal/PRIVACY_POLICY.md`](docs/legal/PRIVACY_POLICY.md),
+[`docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md`](docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md)
+y [`docs/BITDEFENDER_COHABITATION.md`](docs/BITDEFENDER_COHABITATION.md).
+
 ## Integración continua
 
 `.github/workflows/ci.yml` corre en cada push y en cada pull request. Cada paso
