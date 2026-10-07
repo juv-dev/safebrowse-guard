@@ -2,6 +2,20 @@
 
 Mantén `main` como la línea estable: integra cambios mediante PRs cortos y acepta una release solo con checks técnicos y pruebas manuales documentadas para el commit exacto. Esta guía define una política de trabajo; no configura protecciones de ramas ni añade automatización de tags o publicación.
 
+## v0.4.2 Sprint 5 candidate
+
+`v0.4.2` is the Sprint 5 prerelease candidate after `v0.4.1`. Its scope is the explicit consent and role gate, the Privacy Policy no-sale/no-advertising-share clause, the Utah/Louisiana/Texas accountability research, and the Bitdefender desktop coexistence evidence plan. This release does not claim production legal approval, store approval, real-device Bitdefender compatibility, or complete product blocking efficacy.
+
+Required evidence before tagging or publishing the GitHub Release:
+
+- `pnpm lint`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- generated Chrome and Firefox manifests report version `0.4.2`
+- manual review acknowledges that legal and Bitdefender documents are drafts and evidence plans, not final legal or compatibility claims
+
+
 ## Flujo de trabajo
 
 1. **Rama:** en proyectos que usan solo `main`, crea `feature/<slug>` para una funcionalidad o `bugfix/<slug>` para una corrección y abre un PR a `main`. Para una corrección urgente, usa `hotfix/<slug>` desde `main` y abre también un PR a `main`.

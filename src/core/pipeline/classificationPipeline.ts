@@ -1,8 +1,10 @@
+import { canActivateProtection, type ConsentGateReason, type ProtectionConsentState } from '../consent/protectionConsent';
 import { isSensitiveHost } from '../security/sensitiveSiteGuard';
 
 export interface PipelineContext {
   hostname: string;
   root: Element;
+  consent: ProtectionConsentState;
 }
 
 export interface PipelineEvent {
@@ -18,13 +20,19 @@ export interface PipelineStages {
 }
 
 export type PipelineOutcome =
-  | { status: 'skipped'; reason: 'sensitive-host' }
+  | { status: 'skipped'; reason: 'sensitive-host' | ConsentGateReason }
   | { status: 'analyzed' };
 
 export function runClassificationPipeline(
   context: PipelineContext,
   stages: PipelineStages,
 ): PipelineOutcome {
+  const consentDecision = canActivateProtection(context.consent);
+
+  if (!consentDecision.allowed) {
+    return { status: 'skipped', reason: consentDecision.reason };
+  }
+
   if (isSensitiveHost(context.hostname)) {
     return { status: 'skipped', reason: 'sensitive-host' };
   }
