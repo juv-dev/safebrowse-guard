@@ -18,15 +18,15 @@ Complete SG Sprint 8 on top of the Sprint 7 candidate and prepare the next prere
 - [x] T1: Add structured Keyword Guard.
   - Acceptance: rules are data objects; evaluateKeywords filters by protection level and returns matched categories/weights.
   - Checks: unit tests passed.
-  - Commit: pending final work-unit commit.
+  - Commit: f77f134230e647a29da4716e4db806db0ef3cb0f.
 - [x] T2: Add context aggregation rules.
   - Acceptance: low-risk isolated educational terms do not block; explicit combinations do block; generic one-word rules are rejected.
   - Checks: unit tests passed.
-  - Commit: pending final work-unit commit.
+  - Commit: f77f134230e647a29da4716e4db806db0ef3cb0f.
 - [x] T3: Add custom keyword entry validation.
   - Acceptance: block/allow entries persist as sanitized patterns only; unsafe regex patterns are rejected before save.
   - Checks: unit tests, lint, typecheck, test, build and manifest readback passed.
-  - Commit: pending final work-unit commit.
+  - Commit: f77f134230e647a29da4716e4db806db0ef3cb0f.
 
 ## Evidence
 - Branch: feat/sprint-8-keyword-rules.
