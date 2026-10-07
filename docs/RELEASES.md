@@ -2,6 +2,19 @@
 
 Mantén `main` como la línea estable: integra cambios mediante PRs cortos y acepta una release solo con checks técnicos y pruebas manuales documentadas para el commit exacto. Esta guía define una política de trabajo; no configura protecciones de ramas ni añade automatización de tags o publicación.
 
+## v0.4.3 Sprint 6 candidate
+
+`v0.4.3` is the Sprint 6 prerelease candidate after `v0.4.2`. Its scope is the minimal account registration contract, account privacy boundary, temporary-password uninstall authorization, and ordered three-step uninstall or deactivation confirmation. This release does not implement a production email backend, billing system, or store-ready account service.
+
+Required evidence before tagging or publishing the GitHub Release:
+
+- `pnpm lint`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- generated Chrome and Firefox manifests report version `0.4.3`
+- account contracts expose only email, consent completion, verification and entitlement state
+
 ## v0.4.2 Sprint 5 candidate
 
 `v0.4.2` is the Sprint 5 prerelease candidate after `v0.4.1`. Its scope is the explicit consent and role gate, the Privacy Policy no-sale/no-advertising-share clause, the Utah/Louisiana/Texas accountability research, and the Bitdefender desktop coexistence evidence plan. This release does not claim production legal approval, store approval, real-device Bitdefender compatibility, or complete product blocking efficacy.
