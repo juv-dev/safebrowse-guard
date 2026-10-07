@@ -2,6 +2,19 @@
 
 Mantén `main` como la línea estable: integra cambios mediante PRs cortos y acepta una release solo con checks técnicos y pruebas manuales documentadas para el commit exacto. Esta guía define una política de trabajo; no configura protecciones de ramas ni añade automatización de tags o publicación.
 
+## v0.4.5 Sprint 8 candidate
+
+`v0.4.5` is the Sprint 8 prerelease candidate after `v0.4.4`. Its scope is structured Keyword Guard rules, context aggregation for low-risk educational content, and sanitized custom keyword entries with ReDoS-oriented validation. This release does not claim full multilingual coverage or production-grade adult-content recall.
+
+Required evidence before tagging or publishing the GitHub Release:
+
+- `pnpm lint`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- generated Chrome and Firefox manifests report version `0.4.5`
+- keyword docs state the low-risk educational context boundary and custom keyword privacy boundary
+
 ## v0.4.4 Sprint 7 candidate
 
 `v0.4.4` is the Sprint 7 prerelease candidate after `v0.4.3`. Its scope is shared text/hostname normalization, local-first Domain Intelligence, and preloaded domain-list metadata. This release uses deterministic fixture domains only and does not claim production coverage from a public adult-domain list.
