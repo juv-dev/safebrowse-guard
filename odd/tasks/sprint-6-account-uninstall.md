@@ -20,15 +20,15 @@ Complete SG Sprint 6 on top of the Sprint 5 candidate and prepare the next prere
 - [x] T1: Add account registration and verification contracts.
   - Acceptance: account requests contain only email and consent state; account status exposes email, verification and entitlement fields only.
   - Checks: unit tests and privacy contract tests passed.
-  - Commit: pending final work-unit commit.
+  - Commit: 29df6f4c5f0f1575f4b06aec2264f7f45098a597.
 - [x] T2: Add uninstall authorization contracts.
   - Acceptance: uninstall/deactivation requires request, warning acknowledgement, and temporary password confirmation in order.
   - Checks: unit tests for ordering, expiry and one-use validation passed.
-  - Commit: pending final work-unit commit.
+  - Commit: 29df6f4c5f0f1575f4b06aec2264f7f45098a597.
 - [x] T3: Document account privacy and release v0.4.3 scope.
   - Acceptance: docs explain no browsing data reaches account services; release notes mention Sprint 6 scope and limits.
   - Checks: document tests, lint, typecheck, test, build and manifest readback passed.
-  - Commit: pending final work-unit commit.
+  - Commit: 29df6f4c5f0f1575f4b06aec2264f7f45098a597.
 
 ## Evidence
 - Branch: feature/sprint-5-consent-legal.
