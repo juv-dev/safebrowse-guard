@@ -14,6 +14,8 @@ When account features are enabled, SafeBrowse Guard may process the minimum acco
 
 The account service must not receive browsing history, full URLs, page titles, search queries, screenshots, blocked content, private messages, form values, passwords, payment card numbers, health data, or other page content inspected by the Protection Engine.
 
+Uninstall or deactivation may require a temporary one-use password sent through the account email channel. The temporary password flow authorizes only the uninstall or deactivation request and must not transmit Protection Engine data.
+
 ## No sale or advertising sharing
 
 SafeBrowse Guard does not sell account data, email addresses, browsing data, protection events, or product usage data. SafeBrowse Guard does not share account data, email addresses, browsing data, protection events, or product usage data with third parties for advertising, ad targeting, cross-context behavioral advertising, or data-broker enrichment.

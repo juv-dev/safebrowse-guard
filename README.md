@@ -75,10 +75,13 @@ no una configuración de CI o publicación automática.
 ## Consentimiento y límites legales
 
 La activación inicial requiere aceptación explícita de términos, Privacy Policy
-y rol de edad antes de cualquier protección. Los documentos de referencia están
-en [`docs/legal/PRIVACY_POLICY.md`](docs/legal/PRIVACY_POLICY.md),
-[`docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md`](docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md)
-y [`docs/BITDEFENDER_COHABITATION.md`](docs/BITDEFENDER_COHABITATION.md).
+y rol de edad antes de cualquier protección. Las funciones de cuenta quedan
+separadas del Protection Engine y el flujo de desinstalación requiere una
+contraseña temporal de un solo uso. Los documentos de referencia están en
+[`docs/legal/PRIVACY_POLICY.md`](docs/legal/PRIVACY_POLICY.md),
+[`docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md`](docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md),
+[`docs/BITDEFENDER_COHABITATION.md`](docs/BITDEFENDER_COHABITATION.md) y
+[`docs/ACCOUNT_PRIVACY.md`](docs/ACCOUNT_PRIVACY.md).
 
 ## Integración continua
 
