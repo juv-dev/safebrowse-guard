@@ -18,15 +18,15 @@ Complete SG Sprint 7 on top of v0.4.3 and prepare the next prerelease candidate 
 - [x] T1: Add normalization functions with ReDoS-oriented tests.
   - Acceptance: normalizeText and normalizeHostname support lowercase, NFKC, accent removal, URL decoding, full-width normalization and separator collapsing.
   - Checks: unit tests passed.
-  - Commit: pending final work-unit commit.
+  - Commit: d9d757018263c3a2e19c4c290bd065c56bc99b1c.
 - [x] T2: Add Domain Intelligence with local rule priority.
   - Acceptance: local block rules are evaluated before embedded domain list; known adult domains return blocking classification; normal domains return null.
   - Checks: unit tests and pipeline-style spies passed.
-  - Commit: pending final work-unit commit.
+  - Commit: d9d757018263c3a2e19c4c290bd065c56bc99b1c.
 - [x] T3: Add preloaded list metadata and docs.
   - Acceptance: metadata includes source, license, version/date, SHA-256, and attribution; docs clarify build-time embedding and no runtime remote code.
   - Checks: unit/doc tests, lint, typecheck, test, build and manifest readback passed.
-  - Commit: pending final work-unit commit.
+  - Commit: d9d757018263c3a2e19c4c290bd065c56bc99b1c.
 
 ## Evidence
 - Branch: feat/sprint-7-detection-foundation.
