@@ -81,8 +81,9 @@ contraseña temporal de un solo uso. Los documentos de referencia están en
 [`docs/legal/PRIVACY_POLICY.md`](docs/legal/PRIVACY_POLICY.md),
 [`docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md`](docs/legal/APP_STORE_ACCOUNTABILITY_ACTS.md),
 [`docs/BITDEFENDER_COHABITATION.md`](docs/BITDEFENDER_COHABITATION.md),
-[`docs/ACCOUNT_PRIVACY.md`](docs/ACCOUNT_PRIVACY.md) y
-[`docs/DOMAIN_LISTS.md`](docs/DOMAIN_LISTS.md).
+[`docs/ACCOUNT_PRIVACY.md`](docs/ACCOUNT_PRIVACY.md),
+[`docs/DOMAIN_LISTS.md`](docs/DOMAIN_LISTS.md) y
+[`docs/KEYWORD_RULES.md`](docs/KEYWORD_RULES.md).
 
 ## Integración continua
 
